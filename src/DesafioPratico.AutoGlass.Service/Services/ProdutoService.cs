@@ -16,20 +16,20 @@ namespace DesafioPratico.AutoGlass.Service.Services
             _produtoRepository = produtoRepository;
         }
 
-        public async Task Adicionar(Produto produto)
+        public async Task<bool> Adicionar(Produto produto)
         {
+            if (!ValidacoesProdutoOk(produto)) return false;
+
             await _produtoRepository.Adicionar(produto);
+            return true;
         }
 
-        public async Task Atualizar(Produto produto)
+        public async Task<bool> Atualizar(Produto produto)
         {
-            if (produto == null)
-            {
-                Notificar("Produto não encontrado.");
-                return;
-            }
+            if(!ValidacoesProdutoOk(produto)) return false; 
 
             await _produtoRepository.Atualizar(produto);
+            return true;
         }
 
         public async Task<Produto> InativarProduto(int id)
@@ -42,7 +42,7 @@ namespace DesafioPratico.AutoGlass.Service.Services
                 return null;
             }
 
-            if(produto.Situacao == SituacaoProduto.Inativo)
+            if (produto.Situacao == SituacaoProduto.Inativo)
             {
                 Notificar("Produto já está inativado.");
                 return null;
@@ -57,6 +57,29 @@ namespace DesafioPratico.AutoGlass.Service.Services
         public void Dispose()
         {
             _produtoRepository?.Dispose();
+        }
+
+        private bool ValidacoesProdutoOk(Produto produto)
+        {
+            if (produto == null)
+            {
+                Notificar("Produto não encontrado.");
+                return false;
+            }
+
+            if (_produtoRepository.Buscar(q => q.Descricao.Equals(produto.Descricao)).Result.Any())
+            {
+                Notificar("Já existe um produto com a mesma descrição.");
+                return false;
+            }
+
+            if(produto.DataFabricacao >= produto.DataValidade)
+            {
+                Notificar("A Data de Fabricação não pode ser maior ou igual que a Data de Validade.");
+                return false;
+            }
+
+            return true;
         }
 
     }

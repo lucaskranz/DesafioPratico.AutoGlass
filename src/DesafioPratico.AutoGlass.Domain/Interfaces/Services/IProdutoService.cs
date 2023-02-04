@@ -4,8 +4,8 @@ namespace DesafioPratico.AutoGlass.Domain.Interfaces.Services
 {
     public interface IProdutoService : IDisposable
     {
-        Task Adicionar(Produto produto);
-        Task Atualizar(Produto produto);
+        Task<bool> Adicionar(Produto produto);
+        Task<bool> Atualizar(Produto produto);
         Task<Produto> InativarProduto(int id);
     }
 }
