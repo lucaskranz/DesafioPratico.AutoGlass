@@ -1,6 +1,6 @@
-﻿using DesafioPratico.AutoGlass.Service.Notificacoes;
+﻿using DesafioPratico.AutoGlass.Domain.Notificacoes;
 
-namespace DesafioPratico.AutoGlass.Service.Interfaces
+namespace DesafioPratico.AutoGlass.Domain.Interfaces.Notificacoes
 {
     public interface INotificador
     {

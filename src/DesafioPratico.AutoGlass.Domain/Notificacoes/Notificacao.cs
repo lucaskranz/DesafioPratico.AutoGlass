@@ -1,4 +1,4 @@
-﻿namespace DesafioPratico.AutoGlass.Service.Notificacoes
+﻿namespace DesafioPratico.AutoGlass.Domain.Notificacoes
 {
     public class Notificacao
     {

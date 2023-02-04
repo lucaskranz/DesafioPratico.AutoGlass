@@ -1,5 +1,4 @@
-﻿using DesafioPratico.AutoGlass.Service.Interfaces;
-using DesafioPratico.AutoGlass.Service.Notificacoes;
+﻿using DesafioPratico.AutoGlass.Domain.Interfaces.Notificacoes;
 
 namespace DesafioPratico.AutoGlass.Domain.Notificacoes
 {

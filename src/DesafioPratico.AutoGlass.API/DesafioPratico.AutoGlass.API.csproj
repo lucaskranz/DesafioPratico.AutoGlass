@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DesafioPratico.AutoGlass.Infra\DesafioPratico.AutoGlass.Infra.csproj" />
+    <ProjectReference Include="..\DesafioPratico.AutoGlass.Service\DesafioPratico.AutoGlass.Service.csproj" />
   </ItemGroup>
 
 </Project>

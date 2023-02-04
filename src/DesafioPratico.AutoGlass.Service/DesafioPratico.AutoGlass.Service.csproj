@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\DesafioPratico.AutoGlass.Domain\DesafioPratico.AutoGlass.Domain.csproj" />
   </ItemGroup>
 
 </Project>
