@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using DesafioPratico.AutoGlass.API.DTOs;
 using DesafioPratico.AutoGlass.Domain.Enums;
+using DesafioPratico.AutoGlass.Domain.Filters;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Notificacoes;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Repository;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Services;
 using DesafioPratico.AutoGlass.Domain.Models;
+using DesafioPratico.AutoGlass.Domain.Paginacao.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioPratico.AutoGlass.API.Controllers
@@ -23,6 +25,14 @@ namespace DesafioPratico.AutoGlass.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("obter-todos")]
+        public async Task<PagedBaseResponseDTO<Produto>> ObterTodos([FromQuery] ProdutoFilterDb filter)
+        {
+            var produto = await _produtoService.GetPagedAsync(filter);
+
+            return produto;
+        }
+
         [HttpGet("obter-por-id/{id:int}")]
         public async Task<ActionResult<ProdutoDTO>> ObterPorId(int id)
         {
@@ -31,34 +41,6 @@ namespace DesafioPratico.AutoGlass.API.Controllers
             if (fornecedor == null) return NotFound();
 
             return Ok(fornecedor);
-        }
-
-        [HttpGet("obter-todos")]
-        public async Task<IEnumerable<ProdutoDTO>> ObterTodos()
-        {
-            var produto = _mapper.Map<IEnumerable<ProdutoDTO>>(await _produtoRepository.ObterTodos());
-            return produto;
-        }
-
-        [HttpGet("obter-por-situacao/{situacao:int}")]
-        public async Task<IEnumerable<ProdutoDTO>> ObterPorSituacao(int situacao)
-        {
-            var produto = _mapper.Map<IEnumerable<ProdutoDTO>>(await _produtoRepository.ObterProdutosPorSituacao((SituacaoProduto)situacao));
-            return produto;
-        }
-
-        [HttpGet("obter-produtos-vencidos")]
-        public async Task<IEnumerable<ProdutoDTO>> ObterProdutosVencidos()
-        {
-            var produto = _mapper.Map<IEnumerable<ProdutoDTO>>(await _produtoRepository.ObterProdutosVencidos());
-            return produto;
-        }
-
-        [HttpGet("obter-produtos-por-fornecedor/{idFornecedor:int}")]
-        public async Task<IEnumerable<ProdutoDTO>> ObterProdutosFornecedor(int idFornecedor)
-        {
-            var produto = _mapper.Map<IEnumerable<ProdutoDTO>>(await _produtoRepository.ObterProdutosPorFornecedor(idFornecedor));
-            return produto;
         }
 
         [HttpPost("adicionar")]

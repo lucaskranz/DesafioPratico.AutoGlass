@@ -1,8 +1,11 @@
 ﻿using DesafioPratico.AutoGlass.Domain.Enums;
+using DesafioPratico.AutoGlass.Domain.Filters;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Notificacoes;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Repository;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Services;
 using DesafioPratico.AutoGlass.Domain.Models;
+using DesafioPratico.AutoGlass.Domain.Paginacao;
+using DesafioPratico.AutoGlass.Domain.Paginacao.DTOs;
 
 namespace DesafioPratico.AutoGlass.Service.Services
 {
@@ -79,8 +82,17 @@ namespace DesafioPratico.AutoGlass.Service.Services
                 return false;
             }
 
+
+
             return true;
         }
 
+        public async Task<PagedBaseResponseDTO<Produto>> GetPagedAsync(ProdutoFilterDb produtoFilterDb)
+        {
+            var produtoPaged = await _produtoRepository.GetPagedAsync(produtoFilterDb);
+            var result = new PagedBaseResponseDTO<Produto>(produtoPaged.TotalRegisters, produtoPaged.Data);
+
+            return result;
+        }
     }
 }
