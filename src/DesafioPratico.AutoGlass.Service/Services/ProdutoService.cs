@@ -1,4 +1,5 @@
-﻿using DesafioPratico.AutoGlass.Domain.Interfaces.Notificacoes;
+﻿using DesafioPratico.AutoGlass.Domain.Enums;
+using DesafioPratico.AutoGlass.Domain.Interfaces.Notificacoes;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Repository;
 using DesafioPratico.AutoGlass.Domain.Interfaces.Services;
 using DesafioPratico.AutoGlass.Domain.Models;
@@ -22,17 +23,41 @@ namespace DesafioPratico.AutoGlass.Service.Services
 
         public async Task Atualizar(Produto produto)
         {
+            if (produto == null)
+            {
+                Notificar("Produto não encontrado.");
+                return;
+            }
+
             await _produtoRepository.Atualizar(produto);
         }
 
-        public async Task Remover(int id)
+        public async Task<Produto> InativarProduto(int id)
         {
-            await _produtoRepository.Remover(id);
+            var produto = await _produtoRepository.ObterPorId(id);
+
+            if (produto == null)
+            {
+                Notificar("Produto não encontrado.");
+                return null;
+            }
+
+            if(produto.Situacao == SituacaoProduto.Inativo)
+            {
+                Notificar("Produto já está inativado.");
+                return null;
+            }
+
+            produto.Situacao = SituacaoProduto.Inativo;
+
+            await _produtoRepository.InativarProduto(produto);
+            return produto;
         }
 
         public void Dispose()
         {
             _produtoRepository?.Dispose();
         }
+
     }
 }

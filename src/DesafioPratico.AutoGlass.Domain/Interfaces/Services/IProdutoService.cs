@@ -6,6 +6,6 @@ namespace DesafioPratico.AutoGlass.Domain.Interfaces.Services
     {
         Task Adicionar(Produto produto);
         Task Atualizar(Produto produto);
-        Task Remover(int id);
+        Task<Produto> InativarProduto(int id);
     }
 }

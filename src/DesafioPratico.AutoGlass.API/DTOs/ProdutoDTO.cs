@@ -23,6 +23,8 @@ namespace DesafioPratico.AutoGlass.API.DTOs
         public DateTime DataValidade { get; set; }
         public int IdFornecedor { get; set; }
         public string DescricaoFornecedor { get; set; }
+
+        [StringLength(14, ErrorMessage = "O campo {0} precisa ter entre 14 caracteres", MinimumLength = 2)]
         public string CNPJ { get; set; }
     }
 }
