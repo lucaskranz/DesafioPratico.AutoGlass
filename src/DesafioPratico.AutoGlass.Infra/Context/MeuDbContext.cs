@@ -12,7 +12,6 @@ namespace DesafioPratico.AutoGlass.Infra.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MeuDbContext).Assembly);
-            
             base.OnModelCreating(modelBuilder);
         }
     }

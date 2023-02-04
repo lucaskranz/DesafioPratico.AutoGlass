@@ -7,7 +7,7 @@ namespace DesafioPratico.AutoGlass.API.Configurations
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
             services.AddScoped<MeuDbContext>();
-
+     
             return services;
         }
     }

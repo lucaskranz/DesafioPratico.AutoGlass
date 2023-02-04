@@ -1,5 +1,4 @@
-﻿using DesafioPratico.AutoGlass.Domain.Enums;
-using DesafioPratico.AutoGlass.Domain.Models;
+﻿using DesafioPratico.AutoGlass.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,7 +16,7 @@ namespace DesafioPratico.AutoGlass.Infra.Mappings
 
             builder.Property(x => x.Situacao)
                 .IsRequired()
-                .HasColumnType("byte");
+                .HasConversion<sbyte>();
 
             builder.Property(x => x.DataFabricacao)
                 .HasColumnType("datetime2");
@@ -38,12 +37,3 @@ namespace DesafioPratico.AutoGlass.Infra.Mappings
         }
     }
 }
-
-
-//public string Descricao { get; set; }
-//public SituacaoProduto Situacao { get; set; }
-//public DateTime DataFabricacao { get; set; }
-//public DateTime DataValidade { get; set; }
-//public int IdFornecedor { get; set; }
-//public string DescricaoFornecedor { get; set; }
-//public string CNPJ { get; set; }
