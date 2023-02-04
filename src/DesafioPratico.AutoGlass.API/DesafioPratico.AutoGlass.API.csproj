@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DesafioPratico.AutoGlass.Infra\DesafioPratico.AutoGlass.Infra.csproj" />
+  </ItemGroup>
+
 </Project>
